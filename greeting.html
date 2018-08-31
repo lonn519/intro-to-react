@@ -11,17 +11,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     <script type="text/babel">
       class WelcomeGreeting extends React.Component {
+        constructor(props){
+          super(props);
+          this.state = {
+            showImages : true //not sure this would be the best example for a state but good for now
+          }
+        }
         render() {
           return (
             <div>
-              <h1>Hello {this.props.name}.</h1>
+              <h1>Hello {this.props.name} [{this.props.teamName}]</h1>
+              {this.state.showImages &&
+                <ul>
+                {this.props.images.map((item,key)=> {
+                  return <li key={ key }><img src={item}/></li>;
+                })}
+              </ul>
+              }
             </div>
           );
         }
       }
 
+      const heroInfo = {
+        name: "Hulk"
+      }
+
+      const imageList = ['https://vignette.wikia.nocookie.net/hulk/images/6/60/Avengers_hulk_assemble.jpg/revision/latest?cb=20180221170632','https://i.ebayimg.com/images/g/FV0AAOSwHQ9WUNfX/s-l640.jpg'];
+
+      WelcomeGreeting.defaultProps = {
+        teamName: "Avengers"
+      }
+
       ReactDOM.render(
-        <WelcomeGreeting name="Iron Man" />, document.getElementById('app')
+        <WelcomeGreeting 
+          name={heroInfo.name}
+          images={imageList} />, document.getElementById('app')
       );
 
     </script>
